@@ -1,19 +1,17 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import 'react-native-gesture-handler';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DetailScreen from './Detail';
 import HomeScreen from './Home';
 import AboutScreen from './About';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Image} from 'react-native';
 const Stack = createNativeStackNavigator();
 function Navi() {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
       <Stack.Screen name="Detail" component={DetailScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>
@@ -29,39 +27,36 @@ function MyDrawer() {
     </Drawer.Navigator>
   );
 }
-const BottomTab = createMaterialBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigation() {
   return (
     <BottomTab.Navigator initialRouteName="Home">
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="About"
+        component={AboutScreen}
         options={{
-          title: 'Home',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcon name="home" color={color} size={26} />
+          tabBarLabel: 'Home',
+          tabBarIcon: () => (
+            <Image
+              style={{width: 25, height: 25}}
+              source={require('./user.png')}
+            />
           ),
         }}
       />
       <BottomTab.Screen
-        name="About"
+        name="Home"
         component={Navi}
         options={{
-          tabBarLabel: 'About',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcon name="bell" color={color} size={26} />
+          headerShown: false,
+          tabBarLabel: 'Home',
+          tabBarIcon: () => (
+            <Image
+              style={{width: 25, height: 25}}
+              source={require('./home.png')}
+            />
           ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Setting"
-        component={MyDrawer}
-        options={{
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcon name="account" color={color} size={26} />
-          ),
-          tabBarLabel: 'Profiles',
         }}
       />
     </BottomTab.Navigator>
